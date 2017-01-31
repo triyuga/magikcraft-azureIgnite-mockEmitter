@@ -45,16 +45,12 @@
       <legend>Event Dispatch Log</legend>
       <textarea id="eventDispatchLog" rows="7" cols="80"/></textarea><br>
     </fieldset>
-
     <fieldset>
-      <legend>Endpoint Log</legend>
-      <textarea id="endpointLog" rows="7" cols="80"/></textarea><br><br>
-      <input type="submit" value="Clear Log" onclick="clearLog();"/>
+      <input type="submit" value="http://localhost:8666/dumpit" onclick="clearStore();"/>
     </fieldset>
   </div>
 
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="js/script.js"></script>
-  <script src="js/endpoint.js"></script>
+  <script src="js/emitter.js"></script>
 </body>
 </html>

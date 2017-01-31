@@ -58,7 +58,7 @@ function refreshTimerView() {
 /**
  *
  */
-function dispatchEvent() {
+function _dispatchEvent() {
   var restURL = localStorage.getItem('restURL');
 
   var events = [];
@@ -67,11 +67,6 @@ function dispatchEvent() {
   });
   var randomEvent = events[Math.floor(Math.random() * events.length)];
   var randomEventObj = JSON.parse(randomEvent);
-
-  // console.log('restURL');
-  // console.log(restURL);
-  // console.log('JSON.parse(randomEvent)');
-  // console.log(JSON.parse(randomEvent));
 
   var request = $.ajax({
     method: "GET",
@@ -93,9 +88,42 @@ function dispatchEvent() {
       // console.log(textStatus);
     });
 
-  // console.log('request');
-  // console.log(request);
+  var eventDispatchLog = $('#eventDispatchLog').val();
+  eventDispatchLog = eventDispatchLog.length === 0 ? randomEvent : eventDispatchLog + "\n" + randomEvent;
+  $('#eventDispatchLog').val(eventDispatchLog);
 
+  var endpointLog = localStorage.getItem('endpointLog');
+  $('#endpointLog').val(endpointLog);
+}
+
+/**
+ *
+ */
+function dispatchEvent() {
+  var restURL = localStorage.getItem('restURL');
+
+  var events = [];
+  localStorage.getItem('eventTypeJSONs').split(/\r?\n/).map(function(_event){
+    events.push(_event);
+  });
+  var randomEvent = events[Math.floor(Math.random() * events.length)];
+  var randomEventObj = JSON.parse(randomEvent);
+
+  var request = $.ajax({
+    method: "POST",
+    url: restURL,
+    data: JSON.parse(randomEvent),
+  })
+    .done(function(msg) {
+      // console.log('msg');
+      // console.log(msg);
+    })
+    .fail(function( jqXHR, textStatus ) {
+      // console.log('jqXHR');
+      // console.log(jqXHR);
+      // console.log('textStatus');
+      // console.log(textStatus);
+    });
 
   var eventDispatchLog = $('#eventDispatchLog').val();
   eventDispatchLog = eventDispatchLog.length === 0 ? randomEvent : eventDispatchLog + "\n" + randomEvent;
@@ -103,19 +131,19 @@ function dispatchEvent() {
 
   var endpointLog = localStorage.getItem('endpointLog');
   $('#endpointLog').val(endpointLog);
-
-  // console.log('dispatchEvent: ' + randomEvent);
 }
 
-function clearLog() {
-  localStorage.removeItem('endpointLog');
-  window.location.reload();
+function clearStore() {
+  $.ajax({
+    method: "GET",
+    url: 'http://localhost:8666/dumpit',
+  });
 }
 
 /**
  *
  */
-function defaultEventTypeJSONs() {
+function _defaultEventTypeJSONs() {
   var defaultEventTypes = [];
 
   var eventTypes = [
@@ -165,6 +193,59 @@ function defaultEventTypeJSONs() {
 }
 
 /**
+ *
+ */
+function defaultEventTypeJSONs() {
+  var defaultEventTypes = [];
+
+  var eventTypes = [
+    {
+      type: "spell",
+      event: {
+        SpellCast: "jump",
+        CastBy: "jo",
+        PowerLevel: 100,
+        Ingredients: [
+          "Apple",
+          "Pie",
+          "Magick"
+        ]
+      }
+    },
+    {
+      type: "spell",
+      event: {
+        SpellCast: "lightning",
+        CastBy: "tryuga",
+        PowerLevel: 100,
+        Ingredients: [
+          "fire",
+          "brimstone",
+        ]
+      }
+    },
+    {
+      type: "spell",
+      event: {
+        SpellCast: "petrolBomb",
+        CastBy: "death667b",
+        PowerLevel: 100,
+        Ingredients: [
+          "petrol",
+        ]
+      }
+    }
+  ];
+
+  // JSON.stringify eventType and push into defaulteventTypes array.
+  eventTypes.map(function(eventType){
+      defaultEventTypes.push(JSON.stringify(eventType));
+  });
+
+  return defaultEventTypes.join("\n");
+}
+
+/**
  * Runtime.
  */
 
@@ -173,7 +254,9 @@ var interval = localStorage.getItem('interval') ? localStorage.getItem('interval
 localStorage.setItem('interval', interval);
 $('#interval').val(interval);
 
-var defaultRestURL = '/js/endpoint.js';
+// var defaultRestURL = 'http://localhost:8666/eat';
+var defaultRestURL = "https://magikcraftstatstracking.azurewebsites.net/api/MagikcraftStatsInput?code=IJJfN6woqAQlpJcoz5YmkDnqIfKWOqSzrJQeG1O1CfXvS8bRneGjig==";
+
 var restURL = localStorage.getItem('restURL') ? localStorage.getItem('restURL') : defaultRestURL;
 localStorage.setItem('restURL', restURL);
 $('#restURL').val(restURL);
