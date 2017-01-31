@@ -1,0 +1,12 @@
+body {
+  font-family: sans-serif;
+}
+
+.fine-print {
+  color: #ccc;
+  font-size: 0.8em;
+}
+
+#timerCount {
+  font-size: 1.5em;
+}

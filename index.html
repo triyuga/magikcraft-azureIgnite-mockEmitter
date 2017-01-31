@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>mockEmitter</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body class="container-fluid">
+  <!-- <h1>magikcraft-azureIgnite-mockEmitter</h1> -->
+
+  <div class="col col-1 col-sm-6">
+    <fieldset>
+      <legend>Settings</legend>
+      <label for="restURL">REST URL</label><br>
+      <input type="text" id="restURL" size="80" /><br><br>
+
+      <label for="eventTypeJSONs">Event Types JSON</label><br>
+      <textarea id="eventTypeJSONs" rows="7" cols="80"/></textarea><br>
+      <span class="fine-print">Enter each event type as a JSON string. 1 per line. 1 will be picked randomly every interval and emitted via the REST URL.</span><br><br>
+
+      <label for="interval">Interval (milliseconds)</label><br>
+      <input type="text" id="interval" /><br><br>
+
+      <input type="submit" value="Save Settings" onclick="saveSettings();"/>
+      <input type="submit" value="Reset Settings" onclick="resetSettings();"/>
+    </fieldset><br>
+  </div>
+
+  <div class="col col-2 col-sm-6">
+    <fieldset>
+      <legend>Timer</legend>
+      <div id="timerCount">0</div>
+      <input type="submit" value="Start Timer" onclick="startTimer();"/>
+      <input type="submit" value="Stop Timer" onclick="stopTimer();"/>
+    </fieldset>
+
+    <fieldset>
+      <legend>Event Dispatch Log</legend>
+      <textarea id="eventDispatchLog" rows="7" cols="80"/></textarea><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>Endpoint Log</legend>
+      <textarea id="endpointLog" rows="7" cols="80"/></textarea><br><br>
+      <input type="submit" value="Clear Log" onclick="clearLog();"/>
+    </fieldset>
+  </div>
+
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/endpoint.js"></script>
+</body>
+</html>

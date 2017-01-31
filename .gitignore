@@ -1,0 +1,17 @@
+# Annoying OSX files
+.DS_Store
+._.DS_Store
+._.TemporaryItems
+.apdisk
+
+# Annoying ST2/ST3 files
+*.sublime-projectcompletions
+*.sublime-project
+*.sublime-workspace
+
+#Tools
+.alm
+.vscode
+
+node_modules
+.idea
