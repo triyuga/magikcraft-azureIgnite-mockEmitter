@@ -1,7 +1,7 @@
 # magikcraft-azureIgnite-mockEmitter
 Mock Emmitter for testing Chris Briggsy's Magikcraft Stats Azure thing: https://github.com/jwulf/AzureIgnite
 
-Run mock server with:
+Run mock server (local substitute for Azure logger) with:
 
 `$ gulp`
 
@@ -14,3 +14,5 @@ Basically it can:
 
 Run MockEmitter by visiting `index.html` in your browser. Settings and usage should be 
 self explainatory.
+
+Production event Logger at `https://magikcraftstatstracking.azurewebsites.net/api/MagikcraftStatsInput` via POST
