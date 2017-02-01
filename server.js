@@ -1,6 +1,5 @@
-var express = require('express')
-var cors = require('express-cors')
-var app = express()
+var express = require('express');
+var app = express();
 
 
 var store = [];
