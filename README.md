@@ -15,4 +15,5 @@ Basically it can:
 Run MockEmitter by visiting `index.html` in your browser. Settings and usage should be 
 self explainatory.
 
-Production event Logger at `https://magikcraftstatstracking.azurewebsites.net/api/MagikcraftStatsInput` via POST
+For Azure production event Logger enpoints see: https://github.com/jwulf/AzureIgnite
+
