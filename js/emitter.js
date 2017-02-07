@@ -69,7 +69,7 @@ function dispatchEvent() {
   var randomEventObj = JSON.parse(randomEvent);
 
   var request = $.ajax({
-    method: "GET",
+    method: "POST",
     url: restURL,
     data: JSON.parse(randomEvent),
     beforeSend: function (jqXHR, settings) {
@@ -113,22 +113,22 @@ function defaultEventTypeJSONs() {
     {
       eventType: 'playerKilledEntity',
       entityType: 'Kitten',
-      playerName: 'death667b'
+      playerName: null
     },
     {
       eventType: 'playerKilledEntity',
       entityType: 'PuppyDog',
-      playerName: 'death667b'
+      playerName: null
     },
     {
       eventType: 'playerKilledEntity',
       entityType: 'Zombie',
-      playerName: 'triyuga'
+      playerName: null
     },
     {
       eventType: 'playerKilledEntity',
       entityType: 'Zombie',
-      playerName: 'briggsy'
+      playerName: null
     },
     {
       eventType: 'playerCastSpell',
