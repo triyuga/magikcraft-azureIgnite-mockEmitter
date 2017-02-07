@@ -66,12 +66,17 @@ function dispatchEvent() {
     events.push(_event);
   });
   var randomEvent = events[Math.floor(Math.random() * events.length)];
-  var randomEventObj = JSON.parse(randomEvent);
+
+  // var randomEvent = {
+  //   "eventType": "playerKilledEntity",
+  //   "entityType": "CraftSkeleton",
+  //   "playerName": null
+  // };
 
   var request = $.ajax({
     method: "POST",
     url: restURL,
-    data: JSON.parse(randomEvent),
+    data: randomEvent,
     beforeSend: function (jqXHR, settings) {
       console.log('jqXHR');
       console.log(jqXHR);
@@ -146,6 +151,20 @@ function defaultEventTypeJSONs() {
       playerName: 'briggsy'
     }
   ];
+
+
+  // eventTypes = [
+  //   {
+  //     "eventType": "playerCastSpell",
+  //     "spellName": "dixit",
+  //     "playerName": "triyuga"
+  //   },
+  //   {
+  //     "eventType": "playerKilledEntity",
+  //     "entityType": "CraftSkeleton",
+  //     "playerName": null
+  //   }
+  // ];
 
   // JSON.stringify eventType and push into defaulteventTypes array.
   eventTypes.map(function(eventType){
