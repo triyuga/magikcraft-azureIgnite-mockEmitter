@@ -150,22 +150,22 @@ function _defaultEventTypeJSONs() {
     {
       eventType: 'playerKilledEntity',
       entityType: 'Kitten',
-      playerName: 'death667b'
+      playerName: null
     },
     {
       eventType: 'playerKilledEntity',
       entityType: 'PuppyDog',
-      playerName: 'death667b'
+      playerName: null
     },
     {
       eventType: 'playerKilledEntity',
       entityType: 'Zombie',
-      playerName: 'triyuga'
+      playerName: null
     },
     {
       eventType: 'playerKilledEntity',
       entityType: 'Zombie',
-      playerName: 'briggsy'
+      playerName: null
     },
     {
       eventType: 'playerCastSpell',
