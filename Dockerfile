@@ -1,4 +1,4 @@
-FROM timmarwick/magikcraft-mock-emmitter
+FROM sitapati/docker-ubuntu-node-speedus
 
 WORKDIR /build
 ADD . .
