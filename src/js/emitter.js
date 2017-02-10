@@ -3,6 +3,7 @@
  */
 function saveSettings() {
   localStorage.setItem('interval', $('#interval').val());
+  localStorage.setItem('eventsPerDispatch', $('#eventsPerDispatch').val());
   localStorage.setItem('restURL', $('#restURL').val());
   localStorage.setItem('eventTypeJSONs', $('#eventTypeJSONs').val());
   window.location.reload();
@@ -10,6 +11,7 @@ function saveSettings() {
 
 function resetSettings() {
   localStorage.removeItem('interval');
+  localStorage.removeItem('eventsPerDispatch');
   localStorage.removeItem('restURL');
   localStorage.removeItem('eventTypeJSONs');
   window.location.reload();
@@ -76,11 +78,13 @@ function dispatchEvent() {
   // console.log('randomEvent', randomEvent);
   var i = 0;
   while (i < localStorage.getItem('eventsPerDispatch')) {
-
     var request = $.ajax({
-      method: "POST",
-      url: restURL,
-      data: randomEvent,
+      method: "GET",
+      url: '/tiggerDispatch', // ping own server, dispatch from there.
+      data: {
+        restURL: restURL,
+        event: randomEvent,
+      },
       // data: JSON.stringify(randomEvent),
       // dataType: 'JSON',
       beforeSend: function (jqXHR, settings) {
@@ -110,10 +114,11 @@ function dispatchEvent() {
   }
 }
 
-function clearStore() {
+function resetStore() {
+  var resetStoreURL = localStorage.getItem('resetStoreURL');
   $.ajax({
     method: "GET",
-    url: 'http://localhost:8666/dumpit',
+    url: resetStoreURL,
   });
 }
 
@@ -202,6 +207,11 @@ var defaultRestURL = 'http://localhost:8666/eat';
 var restURL = localStorage.getItem('restURL') ? localStorage.getItem('restURL') : defaultRestURL;
 localStorage.setItem('restURL', restURL);
 $('#restURL').val(restURL);
+
+var defaultResetStoreURL = 'http://localhost:8666/reset';
+var resetStoreURL = localStorage.getItem('resetStoreURL') ? localStorage.getItem('resetStoreURL') : defaultResetStoreURL;
+localStorage.setItem('resetStoreURL', resetStoreURL);
+$('#resetStoreURL').val(resetStoreURL);
 
 var defaultEventTypeJSONs = defaultEventTypeJSONs();
 var eventTypeJSONs = localStorage.getItem('eventTypeJSONs') ? localStorage.getItem('eventTypeJSONs') : defaultEventTypeJSONs;

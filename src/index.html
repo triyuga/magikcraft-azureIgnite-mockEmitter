@@ -5,7 +5,7 @@
 
   <title>mockEmitter</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/main.css">
 
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
@@ -49,11 +49,13 @@
       <textarea id="eventDispatchLog" rows="7" cols="80"/></textarea><br>
     </fieldset>
     <fieldset>
-      <input type="submit" value="Clear Player Data at endpoint" onclick="clearStore();"/>
+      <label for="resetStoreURL">Reset Store URL</label><br>
+      <input type="text" id="resetStoreURL" size="80" /><br><br>
+      <input type="submit" value="Reset Store" onclick="resetStore();"/>
     </fieldset>
   </div>
 
-  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="js/jquery.min.js"></script>
   <script src="js/emitter.js"></script>
 </body>
 </html>
