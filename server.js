@@ -3,6 +3,14 @@ var app = express();
 var bodyParser = require('body-parser');
 var Client = require('node-rest-client').Client;
 
+var interval;
+var eventsPerDispatch;
+var restURL;
+var events;
+var emitTimer;
+
+var client = new Client();
+
 /**
  *
  */
@@ -11,46 +19,49 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// app.use(function (req, res, next) {
-//   res.header('Access-Control-Allow-Origin', req.get('Origin') || '*');
-//   res.header('Access-Control-Allow-Credentials', 'true');
-//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-//   res.header('Access-Control-Expose-Headers', 'Content-Length');
-//   res.header('Access-Control-Allow-Headers', 'Accept, Authorization, Content-Type, X-Requested-With, Range');
-//   if (req.method === 'OPTIONS') {
-//     return res.send(200);
-//   } else {
-//     return next();
-//   }
-// });
+/**
+ *
+ */
+function emitEvents() {
+  console.log('emitEvents');
 
+  var count = eventsPerDispatch;
+  while (count >= 0) {
+    var randomEvent = JSON.parse(events[Math.floor(Math.random() * events.length)]);
+    var req = {
+      data: randomEvent,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
 
-// Serves recentSpells.
-app.get('/tiggerDispatch', function (req, res) {
-  console.log('req.query', req.query);
-  // return;
+    // console.log('Emitting Event', randomEvent);
 
-  //Example POST method invocation
-  var client = new Client();
-  // set content-type header and data as json in args parameter
-  var request = {
-    data: req.query.event,
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
+    // dispatch request.
+    client.post(restURL, req, function (data, response) {});
 
-  // dispatch request.
-  client.post(req.query.restURL, request, function (data, response) {
-      // parsed response body as js object
-      console.log('data', data);
-      // raw response
-      // console.log('response', response);
-  });
+    count--;
+  }
+}
+
+app.post('/startEmitter', function (req, res) {
+  interval = req.body.interval;
+  eventsPerDispatch = req.body.eventsPerDispatch;
+  restURL = req.body.restURL;
+  events = req.body.events;
+  clearInterval(emitTimer);
+  emitTimer = setInterval(emitEvents, interval);
 
   return res.json({
-    msg: 'tiggerDispatch',
-    data: req.query
+    msg: 'startEmitter with params:',
+    data: req.body
+  });
+});
+
+app.post('/stopEmitter', function (req, res) {
+  clearInterval(emitTimer);
+  return res.json({
+    msg: 'stopEmitter: emitter stopped',
   });
 });
 

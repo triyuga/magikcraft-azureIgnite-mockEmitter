@@ -31,6 +31,11 @@
       <label for="eventsPerDispatch">eventsPerDispatch</label><br>
       <input type="text" id="eventsPerDispatch" /><br><br>
 
+      <fieldset>
+        <label for="scoreboardThroughputURL">Scoreboard Throughput URL</label><br>
+        <input type="text" id="scoreboardThroughputURL" size="80" /><br><br>
+      </fieldset>
+
       <input type="submit" value="Save Settings" onclick="saveSettings();"/>
       <input type="submit" value="Reset Settings" onclick="resetSettings();"/>
     </fieldset><br>
@@ -38,21 +43,30 @@
 
   <div class="col col-2 col-sm-6">
     <fieldset>
+      <input type="submit" value="Start Emitter" onclick="startEmitter();"/>
+      <input type="submit" value="Stop Emitter" onclick="stopEmitter();"/>
+    </fieldset>
+
+<!--     <fieldset>
       <legend>Timer</legend>
       <div id="timerCount">0</div>
       <input type="submit" value="Start Timer" onclick="startTimer();"/>
       <input type="submit" value="Stop Timer" onclick="stopTimer();"/>
     </fieldset>
+    -->
 
     <fieldset>
-      <legend>Event Dispatch Log</legend>
-      <textarea id="eventDispatchLog" rows="7" cols="80"/></textarea><br>
+      <legend>Throughput Log</legend>
+      <textarea id="throughputLog" rows="7" cols="80"/></textarea><br>
     </fieldset>
-    <fieldset>
+
+
+    <!-- <fieldset>
       <label for="resetStoreURL">Reset Store URL</label><br>
       <input type="text" id="resetStoreURL" size="80" /><br><br>
       <input type="submit" value="Reset Store" onclick="resetStore();"/>
-    </fieldset>
+    </fieldset> -->
+
   </div>
 
   <script src="js/jquery.min.js"></script>
