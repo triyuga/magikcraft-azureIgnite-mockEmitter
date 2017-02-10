@@ -28,6 +28,9 @@
       <label for="interval">Interval (milliseconds)</label><br>
       <input type="text" id="interval" /><br><br>
 
+      <label for="eventsPerDispatch">eventsPerDispatch</label><br>
+      <input type="text" id="eventsPerDispatch" /><br><br>
+
       <input type="submit" value="Save Settings" onclick="saveSettings();"/>
       <input type="submit" value="Reset Settings" onclick="resetSettings();"/>
     </fieldset><br>
@@ -46,7 +49,7 @@
       <textarea id="eventDispatchLog" rows="7" cols="80"/></textarea><br>
     </fieldset>
     <fieldset>
-      <input type="submit" value="http://localhost:8666/dumpit" onclick="clearStore();"/>
+      <input type="submit" value="Clear Player Data at endpoint" onclick="clearStore();"/>
     </fieldset>
   </div>
 

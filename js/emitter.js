@@ -65,7 +65,7 @@ function dispatchEvent() {
   localStorage.getItem('eventTypeJSONs').split(/\r?\n/).map(function(_event){
     events.push(_event);
   });
-  var randomEvent = events[Math.floor(Math.random() * events.length)];
+  var randomEvent = JSON.parse(events[Math.floor(Math.random() * events.length)]);
 
   // var randomEvent = {
   //   "eventType": "playerKilledEntity",
@@ -73,32 +73,41 @@ function dispatchEvent() {
   //   "playerName": null
   // };
 
-  var request = $.ajax({
-    method: "POST",
-    url: restURL,
-    data: randomEvent,
-    beforeSend: function (jqXHR, settings) {
-      console.log('jqXHR');
-      console.log(jqXHR);
-    }
-  })
-    .done(function(msg) {
-      // console.log('msg');
-      // console.log(msg);
+  // console.log('randomEvent', randomEvent);
+  var i = 0;
+  while (i < localStorage.getItem('eventsPerDispatch')) {
+
+    var request = $.ajax({
+      method: "POST",
+      url: restURL,
+      data: randomEvent,
+      // data: JSON.stringify(randomEvent),
+      // dataType: 'JSON',
+      beforeSend: function (jqXHR, settings) {
+        console.log('jqXHR');
+        console.log(jqXHR);
+      }
     })
-    .fail(function( jqXHR, textStatus ) {
-      // console.log('jqXHR');
-      // console.log(jqXHR);
-      // console.log('textStatus');
-      // console.log(textStatus);
-    });
+      .done(function(msg) {
+        // console.log('msg');
+        // console.log(msg);
+      })
+      .fail(function( jqXHR, textStatus ) {
+        // console.log('jqXHR');
+        // console.log(jqXHR);
+        // console.log('textStatus');
+        // console.log(textStatus);
+      });
 
-  var eventDispatchLog = $('#eventDispatchLog').val();
-  eventDispatchLog = eventDispatchLog.length === 0 ? randomEvent : eventDispatchLog + "\n" + randomEvent;
-  $('#eventDispatchLog').val(eventDispatchLog);
+    var eventDispatchLog = $('#eventDispatchLog').val();
+    eventDispatchLog = eventDispatchLog.length === 0 ? randomEvent : eventDispatchLog + "\n" + randomEvent;
+    $('#eventDispatchLog').val(eventDispatchLog);
 
-  var endpointLog = localStorage.getItem('endpointLog');
-  $('#endpointLog').val(endpointLog);
+    var endpointLog = localStorage.getItem('endpointLog');
+    $('#endpointLog').val(endpointLog);
+
+    i++;
+  }
 }
 
 function clearStore() {
@@ -136,35 +145,36 @@ function defaultEventTypeJSONs() {
       playerName: null
     },
     {
+      eventType: "playerKilledEntity",
+      entityType: "Wolf{owner=null,tamed=false}",
+      playerName: null
+    },
+    {
+      eventType: "playerKilledEntity",
+      entityType: "Player{name=ProgHouse2016}",
+      playerName: null
+    },
+    {
       eventType: 'playerCastSpell',
       spellName: 'petrolBomb',
       playerName: 'death667b'
     },
     {
       eventType: 'playerCastSpell',
-      spellName: 'lightningBolt',
+      spellName: 'fulmen',
       playerName: 'triyuga'
     },
     {
       eventType: 'playerCastSpell',
-      spellName: 'lightningBolt',
-      playerName: 'briggsy'
+      spellName: 'ignifera',
+      playerName: 'triyuga'
+    },
+    {
+      eventType: 'playerKilledEntity',
+      entityType: 'Zombie',
+      playerName: null
     }
   ];
-
-
-  // eventTypes = [
-  //   {
-  //     "eventType": "playerCastSpell",
-  //     "spellName": "dixit",
-  //     "playerName": "triyuga"
-  //   },
-  //   {
-  //     "eventType": "playerKilledEntity",
-  //     "entityType": "CraftSkeleton",
-  //     "playerName": null
-  //   }
-  // ];
 
   // JSON.stringify eventType and push into defaulteventTypes array.
   eventTypes.map(function(eventType){
@@ -182,6 +192,11 @@ var defaultInterval = 1000;
 var interval = localStorage.getItem('interval') ? localStorage.getItem('interval') : defaultInterval;
 localStorage.setItem('interval', interval);
 $('#interval').val(interval);
+
+var defaultEventsPerDispatch = 10;
+var eventsPerDispatch = localStorage.getItem('eventsPerDispatch') ? localStorage.getItem('eventsPerDispatch') : defaultEventsPerDispatch;
+localStorage.setItem('eventsPerDispatch', eventsPerDispatch);
+$('#eventsPerDispatch').val(eventsPerDispatch);
 
 var defaultRestURL = 'http://localhost:8666/eat';
 var restURL = localStorage.getItem('restURL') ? localStorage.getItem('restURL') : defaultRestURL;
