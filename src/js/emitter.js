@@ -150,11 +150,6 @@ function defaultEventTypeJSONs() {
       spellName: 'ignifera',
       playerName: 'triyuga'
     },
-    {
-      eventType: 'playerKilledEntity',
-      entityType: 'Zombie',
-      playerName: null
-    }
   ];
 
   // JSON.stringify eventType and push into defaulteventTypes array.

@@ -23,8 +23,7 @@ app.use(bodyParser.urlencoded({
  *
  */
 function emitEvents() {
-  console.log('emitEvents');
-
+  // console.log('emitEvents');
   var count = eventsPerDispatch;
   while (count >= 0) {
     var randomEvent = JSON.parse(events[Math.floor(Math.random() * events.length)]);
@@ -34,9 +33,7 @@ function emitEvents() {
         "Content-Type": "application/json"
       }
     };
-
     // console.log('Emitting Event', randomEvent);
-
     // dispatch request.
     client.post(restURL, req, function (data, response) {});
 
