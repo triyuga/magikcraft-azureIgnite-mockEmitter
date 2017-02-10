@@ -6,5 +6,5 @@ ADD . .
 RUN npm i \
   && node node_modules/gulp/bin/gulp.js build
 
-EXPOSE 8666
+EXPOSE 8667
 CMD ["speedus", "node", "server.js"]
